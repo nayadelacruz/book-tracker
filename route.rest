@@ -1,0 +1,16 @@
+### Get all books
+GET http://localhost:3030/books
+
+### Add a new book
+POST http://localhost:3030/new-book
+Content-Type: application/json
+
+{
+  "title": "Harry Potter",
+  "author": "J.K. Rowling",
+  "totalPages": 309,
+  "pagesRead": 0,
+  "startReadingDate": "2026-10-14",
+  "lastReadDate": null,
+  "status": "Reading"
+}
