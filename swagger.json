@@ -5,10 +5,10 @@
     "description": "Book Tracker API documentation",
     "version": "1.0.0"
   },
-  "host": "localhost:3030",
+  "host": "book-tracker-yrhf.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/books": {
