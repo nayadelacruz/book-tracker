@@ -8,7 +8,12 @@ router.post("/new-book", createBook);
 
 //Future routes
 router.get("/books/:id", getBook);
-router.put("/books", updateBook);
-router.delete("/books/:id", deleteBook);
+router.put("/:id", (req, res) => {
+  res.status(501).json({ message: "Not implemented yet" });
+});
+
+router.delete("/:id", (req, res) => {
+  res.status(501).json({ message: "Not implemented yet" });
+});
 
 export default router;
