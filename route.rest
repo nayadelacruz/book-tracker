@@ -14,3 +14,20 @@ Content-Type: application/json
   "lastReadDate": null,
   "status": "Reading"
 }
+
+### Get one book
+GET http://localhost:3030/books/6acfe0ef202b1d5b3b3a81fd
+
+
+### Update reading progress
+PUT http://localhost:3030/books/6ada5e45f78cc855ac5ba8b1
+Content-Type: application/json
+
+{
+  "pagesRead": 100
+}
+
+
+### Delete a book
+DELETE http://localhost:3030/books/6ada5e45f78cc855ac5ba8b1
+

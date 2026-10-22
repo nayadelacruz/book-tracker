@@ -1,4 +1,11 @@
-import { getAllBooks, getOneBook, addBook } from "../modules/books.js";
+import {
+  getAllBooks,
+  getOneBook,
+  addBook,
+  updateBookInDb,
+  deleteBook,
+} from "../modules/books.js";
+import { ObjectId } from "mongodb";
 
 export async function getBooks(req, res) {
   try {
@@ -15,6 +22,11 @@ export async function getBook(req, res) {
   try {
     const id = req.params.id;
     const book = await getOneBook(id);
+    if (!book) {
+      return res.status(404).json({
+        message: "Book not found",
+      });
+    }
     res.status(200).json(book);
   } catch (error) {
     console.log(error);
@@ -75,5 +87,54 @@ export async function createBook(req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to create book" });
+  }
+}
+
+export async function updateBook(req, res) {
+  try {
+    const bookId = req.params.id;
+    const pagesRead = req.body.pagesRead;
+
+    const result = await updateBookInDb(bookId, pagesRead);
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({
+        message: "Book not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Reading progress updated successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Error updating reading progress",
+    });
+  }
+}
+
+export async function deleteBookController(req, res) {
+  try {
+    const bookId = req.params.id;
+
+    const result = await deleteBook(bookId);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({
+        message: "Book not found",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Book deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      message: "Error deleting book",
+    });
   }
 }

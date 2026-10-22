@@ -1,19 +1,30 @@
 import express from "express";
-import { getBooks, getBook, createBook } from "../controllers/books.js";
+import {
+  getBooks,
+  getBook,
+  createBook,
+  updateBook,
+  deleteBookController,
+} from "../controllers/books.js";
+import {
+  updateBookRules,
+  validateBook,
+  bookIdRules,
+  createBookRules,
+} from "../validators/bookValidator.js";
 
 const router = express.Router();
 //Working routes
 router.get("/books", getBooks);
-router.post("/new-book", createBook);
-
-//Future routes
-router.get("/books/:id", getBook);
-router.put("/:id", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
-
-router.delete("/:id", (req, res) => {
-  res.status(501).json({ message: "Not implemented yet" });
-});
+router.get("/books/:id", bookIdRules, validateBook, getBook);
+router.post("/new-book", createBookRules, validateBook, createBook);
+router.put(
+  "/books/:id",
+  bookIdRules,
+  updateBookRules,
+  validateBook,
+  updateBook,
+);
+router.delete("/books/:id", bookIdRules, validateBook, deleteBookController);
 
 export default router;

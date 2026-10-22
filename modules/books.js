@@ -20,3 +20,23 @@ export async function addBook(book) {
 
   return result;
 }
+
+export async function updateBookInDb(bookId, pagesRead) {
+  const db = await connectToMongoDB();
+
+  const result = await db
+    .collection("books")
+    .updateOne(
+      { _id: new ObjectId(bookId) },
+      { $set: { pagesRead: pagesRead, lastReadDate: new Date() } },
+    );
+  return result;
+}
+
+export async function deleteBook(id) {
+  const db = await connectToMongoDB();
+  const result = await db
+    .collection("books")
+    .deleteOne({ _id: new ObjectId(id) });
+  return result;
+}
