@@ -1,4 +1,4 @@
-import { body, validationResult, param } from "express-validator";
+import { body, param } from "express-validator";
 import { getOneBook } from "../modules/books.js";
 
 export const bookIdRules = [
@@ -32,18 +32,6 @@ export const updateBookRules = [
     }),
   param("id").isMongoId().withMessage("Invalid book ID"),
 ];
-
-export const validateBook = (req, res, next) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      errors: errors.array(),
-    });
-  }
-
-  next();
-};
 
 export const createBookRules = [
   body("title").isString().notEmpty().withMessage("Title is required"),

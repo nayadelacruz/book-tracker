@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { connectToMongoDB } from "./modules/connection.js";
 import routes from "./routes/bookRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
 
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 3030;
 
 app.use(express.json());
 app.use("/", routes);
+app.use("/", reviewRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get("/", (req, res) => {

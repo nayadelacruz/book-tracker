@@ -1,4 +1,5 @@
 import express from "express";
+import { validateRequest } from "../validators/validate.js";
 import {
   getBooks,
   getBook,
@@ -8,7 +9,6 @@ import {
 } from "../controllers/books.js";
 import {
   updateBookRules,
-  validateBook,
   bookIdRules,
   createBookRules,
 } from "../validators/bookValidator.js";
@@ -16,15 +16,15 @@ import {
 const router = express.Router();
 //Working routes
 router.get("/books", getBooks);
-router.get("/books/:id", bookIdRules, validateBook, getBook);
-router.post("/new-book", createBookRules, validateBook, createBook);
+router.get("/books/:id", bookIdRules, validateRequest, getBook);
+router.post("/new-book", createBookRules, validateRequest, createBook);
 router.put(
   "/books/:id",
   bookIdRules,
   updateBookRules,
-  validateBook,
+  validateRequest,
   updateBook,
 );
-router.delete("/books/:id", bookIdRules, validateBook, deleteBookController);
+router.delete("/books/:id", bookIdRules, validateRequest, deleteBookController);
 
 export default router;

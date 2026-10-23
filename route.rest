@@ -31,3 +31,17 @@ Content-Type: application/json
 ### Delete a book
 DELETE http://localhost:3030/books/6ada5e45f78cc855ac5ba8b1
 
+
+### Create a review for The Hobbit
+POST http://localhost:3030/books/6acfe0ef202b1d5b3b3a81fd/reviews
+Content-Type: application/json
+
+{
+  "rating": 5,
+  "reviewText": "The Hobbit is an amazing book! I really enjoyed the adventure and the characters."
+}
+
+
+### Get review for The Hobbit
+GET http://localhost:3030/books/6acfe0ef202b1d5b3b3a81fd/reviews
+Accept: application/json
