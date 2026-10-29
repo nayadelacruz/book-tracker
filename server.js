@@ -1,14 +1,19 @@
 import express from "express";
-import dotenv from "dotenv";
+//import dotenv from "dotenv";
+//try this but if not works use the one above
+import "dotenv/config";
 import { connectToMongoDB } from "./modules/connection.js";
 import routes from "./routes/bookRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "./swagger.json" with { type: "json" };
-import passport from "passport";
+import passport from "./config/passport.js";
 import { sessionMiddleware } from "./config/session.js";
+import authRoutes from "./routes/authRoutes.js";
 
-dotenv.config();
+/*this has been hiden because of the change in the import  
+dotenv but if we go back to previous form, this most be unhidden */
+//dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3030;
@@ -23,6 +28,9 @@ app.use(express.json());
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Authentication routes
+app.use("/", authRoutes);
 
 app.use("/", routes);
 app.use("/", reviewRoutes);
