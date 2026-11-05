@@ -14,6 +14,10 @@ const doc = {
 
 const outputFile = "./swagger.json";
 
-const routes = ["./routes/bookRoutes.js", "./routes/reviewRoutes.js"];
+const routes = [
+  "./routes/bookRoutes.js",
+  "./routes/reviewRoutes.js",
+  "./routes/authRoutes.js",
+];
 
 swagger(outputFile, routes, doc);

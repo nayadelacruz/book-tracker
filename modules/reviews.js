@@ -9,7 +9,7 @@ export async function addReview(review) {
     rating: review.rating,
     reviewText: review.reviewText,
     createdAt: new Date(),
-    updateedAt: new Date(),
+    updatedAt: new Date(),
   };
 
   const result = await db.collection("reviews").insertOne(newReview);
