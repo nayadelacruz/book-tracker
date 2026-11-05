@@ -45,3 +45,9 @@ Content-Type: application/json
 ### Get review for The Hobbit
 GET http://localhost:3030/books/6acfe0ef202b1d5b3b3a81fd/reviews
 Accept: application/json
+
+### Log in
+GET http://localhost:3030/auth/google
+
+### Log out
+POST http://localhost:3030/auth/logout
