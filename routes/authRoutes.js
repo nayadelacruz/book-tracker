@@ -27,4 +27,37 @@ router.get("/auth/failed", (req, res) => {
   });
 });
 
+// Check wheter a user is currently logged in
+router.get("/auth/me", (req, res) => {
+  if (!req.isAuthenticated()) {
+    return res.status(401).json({
+      message: "Not authenticated",
+    });
+  }
+
+  return res.status(200).json({
+    message: "Authenticated",
+    user: {
+      id: req.user.id,
+      displayName: req.user.displayName,
+    },
+  });
+});
+
+//Log out and destroy the session
+router.post("/auth/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+
+    res.session.destroy((error) => {
+      if (err) return next(err);
+
+      res.clearCookie("connect.sid");
+      return res.status(200).json({
+        message: "Logged out successfully",
+      });
+    });
+  });
+});
+
 export default router;

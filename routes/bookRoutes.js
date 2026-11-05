@@ -12,8 +12,12 @@ import {
   bookIdRules,
   createBookRules,
 } from "../validators/bookValidator.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
+// Protect ALL routes below this line
+router.use(requireAuth);
+
 //Working routes
 router.get("/books", getBooks);
 router.get("/books/:id", bookIdRules, validateRequest, getBook);

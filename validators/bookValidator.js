@@ -39,12 +39,12 @@ export const createBookRules = [
   body("author").isString().notEmpty().withMessage("Author is required"),
 
   body("totalPages")
-    .isInt({ min: 1 })
-    .withMessage("Total pages must be greater than 0"),
+    .custom((value) => Number.isInteger(value) && value > 0)
+    .withMessage("Total pages must be greater than 0 and an integer"),
 
   body("pagesRead")
-    .isInt({ min: 0 })
-    .withMessage("Pages read must be a non-negative integer")
+    .custom((value) => Number.isInteger(value) && value > 0)
+    .withMessage("Total pages must be greater than 0 and an integer")
     .custom((pagesRead, { req }) => {
       if (pagesRead > req.body.totalPages) {
         throw new Error("Pages read cannot exceed total pages");
