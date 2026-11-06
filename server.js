@@ -29,16 +29,16 @@ app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/", (req, res) => {
+  res.send("Book Tracker API is running!");
+});
+
 // Authentication routes
 app.use("/", authRoutes);
 
 app.use("/", routes);
 app.use("/", reviewRoutes);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.get("/", (req, res) => {
-  res.send("Book Tracker API is running!");
-});
 
 async function startServer() {
   try {
